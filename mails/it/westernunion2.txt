@@ -1,0 +1,18 @@
+Salut
+
+Commande #{orderid} est un orderid de paiement
+
+Le client fait un paiement sur WU, vous pouvez retirer de l'argent et
+
+Nom: {name}
+
+Adresse: {address}
+
+Tel: {tel}
+
+Je montant payé: {amount}
+
+Transaction ID: {transaction}
+
+
+{shop_url} powered by PrestaShop™

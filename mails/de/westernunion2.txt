@@ -1,0 +1,18 @@
+Hallo
+
+Orden #{orderid} eine Zahlung orderid
+
+Der Kunde eine Zahlung WU machen, können Sie Geld abheben können und
+
+Name: {name}
+
+Adresse: {address}
+
+Tel: {tel}
+
+Ich Betrag bezahlt: {amount}
+
+Transaktions-ID: {transaction}
+
+
+{shop_url} powered by PrestaShop™

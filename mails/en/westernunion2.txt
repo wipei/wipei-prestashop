@@ -1,0 +1,20 @@
+Hi
+
+Order #{orderid} have a payment
+
+Please note that you have selected to pay by WesternUnion. Please send your wire to:
+
+The customer make a payment in WU. You can pick your money : 
+
+Customer Name: {name} 
+
+Address: {address} 
+
+Tel: {tel} 
+
+Amount paid: {amount}
+
+Transaction ID: {transaction}
+
+
+{shop_url} powered by PrestaShop™

@@ -1,0 +1,10 @@
+Name: {name}
+
+Address:{address}
+
+Tel: {tel}
+
+Amount: {amount}
+
+Transaction MTCN number: {transaction}
+
