@@ -11,7 +11,7 @@
  * added
  * @license   http://localhost
  */
-use PrestaShop\PrestaShop\Core\Payment\PaymentOption;
+//use PrestaShop\PrestaShop\Core\Payment\PaymentOption;
 class Wipei extends PaymentModule
 {
     const WIPEI_ENDPOINT = 'https://api.wipei.com.ar/';
