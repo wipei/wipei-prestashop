@@ -26,5 +26,5 @@
 <p class="payment_module">
 	<a href="{$link->getModuleLink('wipei', 'payment')|escape:'html'}" title="{l s='Pay by Wipei' module='wipei'}">
 		<img src="{$this_path}logo.png" alt="{l s='Pay by Wipei' module='wipei'}" width="64" />
-		{l s='Pay by Wipei' module='wipei'}&nbsp;
+		{$descl}&nbsp;
 </p>

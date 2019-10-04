@@ -47,7 +47,7 @@ class Wipei extends PaymentModule
         if (_PS_VERSION_ > '1.6.0.0') {
             $this->bootstrap = true;
         }
-        $this->version = '1.0.0';
+        $this->version = '1.1.0';
         parent::__construct();
         $this->controllers = array('payment', 'validation');
         $this->is_eu_compatible = 1;
@@ -116,8 +116,8 @@ class Wipei extends PaymentModule
         );
         $newOption->setModuleName($this->name)
         ->setAction($this->context->link->getModuleLink($this->name, 'payment', array(), true))
-                ->setCallToActionText($descl)
-                //  ->setLogo(_PS_BASE_URI__.'modules/'.$this->name.'/logo.png')
+                ->setCallToActionText('Pagar con Wipei '. $descl)
+                ->setLogo(Media::getMediaPath(_PS_MODULE_DIR_.$this->name.'/logo2.png'));
            ;
 
                 //var_dump($newOption);
@@ -132,10 +132,15 @@ class Wipei extends PaymentModule
                 'WIPEI_TITLEL',
                 $this->context->language->id
             );
+            $descl = Configuration::get(
+                'WIPEI_DESCL',
+                $this->context->language->id
+            );
 		$this->smarty->assign(array(
 			//'nombre' => Configuration::get($this->getPrefijo('PREFIJO_CONFIG').'_FRONTEND_NAME'),//nombre que se muestra al momento de elegir los metodos de pago 
             'this_path' => $this->_path,
             'titlel' => $titlel,
+            'descl' => $descl,
 			'this_path_ejemplo' => $this->_path,
 			'this_path_ssl' => Tools::getShopDomainSsl(true, true).__PS_BASE_URI__.'modules/'.$this->name.'/',
 			'module_path' => strtolower(__PS_BASE_URI__.'modules/'.$this->name.'/views/img/logo.png'),

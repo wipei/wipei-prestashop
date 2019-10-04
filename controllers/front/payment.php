@@ -74,10 +74,11 @@ if (_PS_VERSION_ > "1.7.0.0"){
         $items =array();
         $i = 0;
 		foreach ($products as $product){
+            //var_dump($product);
             $items[] = array(
 'name' =>$product['name'],
 'quantity' =>$product['cart_quantity'],
-'price' =>$product['price']
+'price' =>round($product['price_wt'],2)
             );
 $i++;
 		}
