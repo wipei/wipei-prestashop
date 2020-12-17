@@ -102,27 +102,26 @@ class Wipei extends PaymentModule
         }
         return true;
     }
+
     public function hookPaymentOptions($params)
     {
-      
-        $this->smarty->assign(
-            $this->getTemplateVars()
-        );
+        $this->smarty->assign($this->getTemplateVars());
 
         $newOption = new PaymentOption();
         $descl = Configuration::get(
             'WIPEI_DESCL',
             $this->context->language->id
         );
-        $newOption->setModuleName($this->name)
-        ->setAction($this->context->link->getModuleLink($this->name, 'payment', array(), true))
-                ->setCallToActionText('Pagar con Wipei '. $descl)
-                ->setLogo(Media::getMediaPath(_PS_MODULE_DIR_.$this->name.'/logo2.png'));
-           ;
 
-                //var_dump($newOption);
+        $newOption->setModuleName($this->name)
+            ->setAction($this->context->link->getModuleLink($this->name, 'payment', array(), true))
+            ->setCallToActionText('Pagar con Wipei '. $descl)
+            ->setLogo(Media::getMediaPath(_PS_MODULE_DIR_.$this->name.'/logo2.png'));
+
+        //var_dump($newOption);
         return [$newOption];
     }
+
     public function hookDisplayPayment()
 	{
 		//si el modulo no esta activo
@@ -137,7 +136,7 @@ class Wipei extends PaymentModule
                 $this->context->language->id
             );
 		$this->smarty->assign(array(
-			//'nombre' => Configuration::get($this->getPrefijo('PREFIJO_CONFIG').'_FRONTEND_NAME'),//nombre que se muestra al momento de elegir los metodos de pago 
+			//'nombre' => Configuration::get($this->getPrefijo('PREFIJO_CONFIG').'_FRONTEND_NAME'),//nombre que se muestra al momento de elegir los metodos de pago
             'this_path' => $this->_path,
             'titlel' => $titlel,
             'descl' => $descl,
@@ -147,7 +146,8 @@ class Wipei extends PaymentModule
 
 		));
 		return $this->display(__FILE__, 'payment.tpl');//asigno el template que quiero usar
-	}
+    }
+
     public function checkCurrency($cart)
     {
         $currency_order = new Currency((int)($cart->id_currency));
@@ -162,6 +162,7 @@ class Wipei extends PaymentModule
         }
         return false;
     }
+
     public function getTemplateVars()
     {
         $cart = $this->context->cart;
@@ -595,19 +596,19 @@ class Wipei extends PaymentModule
         return false;
         $curlInit = curl_init('https://api.wipei.com.ar/token');
 
-        $data = array("client_id" => Configuration::get('WIPEI_API'), "client_secret" => Configuration::get('WIPEI_PROFILE'));                                                                    
-        $data_string = json_encode($data);   
+        $data = array("client_id" => Configuration::get('WIPEI_API'), "client_secret" => Configuration::get('WIPEI_PROFILE'));
+        $data_string = json_encode($data);
         //curl_setopt($curlInit,CURLOPT_CONNECTTIMEOUT,10);
         //curl_setopt($curlInit, CURLOPT_CUSTOMREQUEST, "POST");
-        //curl_setopt($curlInit, CURLOPT_POSTFIELDS, $data_string);                                                                  
+        //curl_setopt($curlInit, CURLOPT_POSTFIELDS, $data_string);
 
         //curl_setopt($curlInit,CURLOPT_HEADER,true);
         //curl_setopt($curlInit,CURLOPT_NOBODY,true);
         //curl_setopt($curlInit,CURLOPT_RETURNTRANSFER,true);
-        //curl_setopt($curlInit, CURLOPT_HTTPHEADER, array(                                                                          
-            //'Content-Type: application/json; charset=utf-8',                                                                                
-            //'Content-Length: ' . strlen($data_string))                                                                       
-        //); 
+        //curl_setopt($curlInit, CURLOPT_HTTPHEADER, array(
+            //'Content-Type: application/json; charset=utf-8',
+            //'Content-Length: ' . strlen($data_string))
+        //);
         $result = file_get_contents('https://api.wipei.com.ar/token', null, stream_context_create(array(
             'http' => array(
             'method' => 'POST',
@@ -626,7 +627,7 @@ class Wipei extends PaymentModule
             'header' => 'Content-Type: application/json' . "\r\n"
             . 'authorization: ' . $response->access_token . "\r\n"
             . 'Content-Length: ' . strlen($response->access_token) . "\r\n",
-         
+
             'body'=> 'total: 500' . "\r\n"
                 . 'external_reference: 00025'. "\r\n"
                 .'url_success: http://success.com'. "\r\n"
@@ -677,7 +678,7 @@ class Wipei extends PaymentModule
             $sec = "http";
         }
         $tok = $this->fetchToken();
-    
+
         $msg = '';
         if ( $tok) {
             $msg = $this->l('Acceso Token OK');
