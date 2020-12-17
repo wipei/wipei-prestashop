@@ -14,7 +14,7 @@ class WipeiNotifyModuleFrontController extends ModuleFrontController
     const WIPEI_URL_NOTIFY_ROUTE  = 'payment.notify';
     const WIPEI_URL_FAILURE_ROUTE = 'payment.failure';
     const WIPEI_URL_SUCCESS_ROUTE = 'payment.success';
- 
+
 
 	public $ssl = true;
 	public function initContent()
@@ -30,7 +30,7 @@ class WipeiNotifyModuleFrontController extends ModuleFrontController
         //$debugfile = fopen("debug.txt", "w");
 
         //fwrite($debugfile,  print_r($response ,true)."\n");
-  
+
 		//$cart = $this->context->cart;
 		//if ($cart->id_customer == 0 || $cart->id_address_delivery == 0 || $cart->id_address_invoice == 0 || !$this->module->active)
 			//Tools::redirect('index.php?controller=order&step=1');
@@ -59,12 +59,12 @@ class WipeiNotifyModuleFrontController extends ModuleFrontController
             'SELECT * FROM `'._DB_PREFIX_.'orders`
 WHERE `id_cart` = '.substr_replace($response->data->external_reference ,"", -4)
         );
-        if ($result) { 
+        if ($result) {
             if ($response->data->status == "approved" or $response->data->status == "pending_approved") {
-         
+
                 //var_dump( $result);
                 foreach ($result as $ord) {
-                   
+
                     $objOrder = new Order($ord['id_order']);
                     $history = new OrderHistory();
                     $history->id_order = (int)$objOrder->id;
@@ -88,17 +88,17 @@ WHERE `id_cart` = '.substr_replace($response->data->external_reference ,"", -4)
                      ); //order status=3
                      $objOrder->setCurrentState(Configuration::get('PS_OS_CANCELED'));
                      $debugfile2 = fopen("debug2.txt", "w");
- 
+
                      fwrite($debugfile2,  print_r($response->data->status.'---'.$ord ,true)."\n");
                  }
-        
+
         }
     } else {
         if ($response->data->status == "approved" or $response->data->status == "pending_approved"){
-         
+
                         //var_dump( $result);
                         /*foreach ($result as $ord) {
-                           
+
                             $objOrder = new Order($ord['id_order']);
                             $history = new OrderHistory();
                             $history->id_order = (int)$objOrder->id;
@@ -118,11 +118,11 @@ WHERE `id_cart` = '.substr_replace($response->data->external_reference ,"", -4)
          $customer = new Customer($cart->id_customer);
          //if (!Validate::isLoadedObject($customer))
            //  Tools::redirect('index.php?controller=order&step=1');
- 
+
          $currency = $this->context->currency;
          $total = (float)$cart->getOrderTotal(true, Cart::BOTH);
-       
- 
+
+
          $this->module->validateOrder($cart->id, Configuration::get('PS_OS_PAYMENT'), $total, $this->module->displayName, NULL, array(), (int)$currency->id, false, $customer->secure_key);
          exit;
          //Tools::redirect('index.php?controller=order-confirmation&id_cart='.$cart->id.'&id_module='.$this->module->id.'&id_order='.$this->module->currentOrder.'&key='.$customer->secure_key);
@@ -146,7 +146,7 @@ WHERE `id_cart` = '.substr_replace($response->data->external_reference ,"", -4)
                 $customer = new Customer($cart->id_customer);
                 if (!Validate::isLoadedObject($customer))
                     Tools::redirect('index.php?controller=order&step=1');
-        
+
                 $currency = $this->context->currency;
                 $total = (float)$cart->getOrderTotal(true, Cart::BOTH);
                 $mailVars = array(
@@ -154,15 +154,15 @@ WHERE `id_cart` = '.substr_replace($response->data->external_reference ,"", -4)
                     '{bankwire_details}' => nl2br(Configuration::get('BANK_WIRE_DETAILS')),
                     '{bankwire_address}' => nl2br(Configuration::get('BANK_WIRE_ADDRESS'))
                 );
-        
+
                 $this->module->validateOrder($cart->id, Configuration::get('PS_OS_CANCELED'), $total, $this->module->displayName, NULL, $mailVars, $this->context->currency->id, false, $customer->secure_key);
                 exit;
                 //$this->module->validateOrder($cart->id, Configuration::get('_PS_OS_CANCELED_'), $total, $this->module->displayName, NULL, $mailVars, (int)$currency->id, false, $customer->secure_key);
-                }  
+                }
             }
                exit;
             }
-        
+
 	}
     public function fetchToken()
     {
@@ -210,7 +210,7 @@ WHERE `id_cart` = '.substr_replace($response->data->external_reference ,"", -4)
 
         $output = curl_exec($handle);
 
-		
+
         $response = (object) [
             'status' => curl_getinfo($handle, CURLINFO_HTTP_CODE),
             'data'   => json_decode($output),
